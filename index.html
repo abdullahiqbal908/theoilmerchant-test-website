@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Oil Merchant — Pure Oils, Honestly Made</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ocean:    '#2A6496',
+            sky:      '#5B9EC9',
+            steel:    '#7AAFC4',
+            ice:      '#D4EAF5',
+            mist:     '#EEF5FA',
+            ecru:     '#F7F4EF',
+            sage:     '#7D9B77',
+            midnight: '#1C2B3A',
+            slate:    '#6A7F8E',
+          },
+          fontFamily: {
+            display: ['"Libre Baskerville"', 'Georgia', 'serif'],
+            body:    ['Jost', 'system-ui', 'sans-serif'],
+          },
+          letterSpacing: {
+            tightest: '-0.04em',
+            tighter:  '-0.03em',
+            wide:     '0.08em',
+            widest:   '0.12em',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Jost', system-ui, sans-serif; color: #1C2B3A; background: #fff; margin: 0; }
+
+    /* Nav underline hover */
+    .nav-link {
+      position: relative;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #1C2B3A;
+      text-decoration: none;
+      padding-bottom: 2px;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0; right: 0;
+      height: 1px;
+      background: #2A6496;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.25s cubic-bezier(0.4,0,0.2,1);
+    }
+    .nav-link:hover::after { transform: scaleX(1); }
+    .nav-link:hover { color: #2A6496; }
+
+    /* Product card hover */
+    .product-card { transition: transform 0.3s cubic-bezier(0.4,0,0.2,1); }
+    .product-card:hover { transform: translateY(-4px); }
+    .product-card:hover .quick-add { opacity: 1; transform: translateY(0); }
+
+    .quick-add {
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    /* Hero carousel dots */
+    .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.5); cursor: pointer; transition: background 0.2s; }
+    .dot.active { background: #fff; }
+
+    /* Tab active */
+    .tab-btn { cursor: pointer; font-family: 'Jost', sans-serif; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; padding: 8px 20px; border: 1px solid #1C2B3A; transition: background 0.2s, color 0.2s; }
+    .tab-btn.active, .tab-btn:hover { background: #1C2B3A; color: #fff; }
+
+    /* Btn states */
+    .btn-primary {
+      display: inline-block;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: #1C2B3A;
+      color: #fff;
+      padding: 13px 32px;
+      cursor: pointer;
+      border: none;
+      transition: background 0.2s, box-shadow 0.2s;
+      text-decoration: none;
+    }
+    .btn-primary:hover { background: #2A6496; box-shadow: 0 4px 20px rgba(42,100,150,0.3); }
+    .btn-primary:active { background: #1C2B3A; }
+    .btn-primary:focus-visible { outline: 2px solid #5B9EC9; outline-offset: 2px; }
+
+    .btn-outline {
+      display: inline-block;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: transparent;
+      color: #1C2B3A;
+      padding: 12px 32px;
+      border: 1px solid #1C2B3A;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      text-decoration: none;
+    }
+    .btn-outline:hover { background: #1C2B3A; color: #fff; }
+    .btn-outline:focus-visible { outline: 2px solid #5B9EC9; outline-offset: 2px; }
+
+    .btn-outline-white {
+      display: inline-block;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: transparent;
+      color: #fff;
+      padding: 12px 32px;
+      border: 1px solid rgba(255,255,255,0.7);
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      text-decoration: none;
+    }
+    .btn-outline-white:hover { background: rgba(255,255,255,0.15); border-color: #fff; }
+
+    /* Icon buttons */
+    .icon-btn {
+      background: none; border: none; cursor: pointer; padding: 6px;
+      color: #1C2B3A; transition: color 0.2s, opacity 0.2s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .icon-btn:hover { color: #2A6496; opacity: 0.8; }
+    .icon-btn:focus-visible { outline: 2px solid #5B9EC9; outline-offset: 2px; border-radius: 2px; }
+
+    /* Section label */
+    .section-label {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #6A7F8E;
+    }
+
+    /* Divider */
+    .divider { border: none; border-top: 1px solid #E5E9EC; margin: 0; }
+
+    /* Brand card hover */
+    .brand-card { transition: transform 0.25s ease, box-shadow 0.25s ease; cursor: pointer; }
+    .brand-card:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(42,100,150,0.12); }
+
+    /* Footer link */
+    .footer-link { font-size: 0.8rem; color: #ccc; text-decoration: none; display: block; margin-bottom: 8px; transition: color 0.2s; }
+    .footer-link:hover { color: #fff; }
+  </style>
+</head>
+<body>
+
+  <!-- ─── ANNOUNCEMENT BAR ─── -->
+  <div style="background: #1C2B3A; color: #fff; text-align: center; padding: 10px 16px; font-family: 'Jost', sans-serif; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500;">
+    Free delivery across Pakistan on orders Rs. 5,000+ &nbsp;·&nbsp; <a href="#" style="color: #D4EAF5; text-decoration: underline;">Shop Now</a>
+  </div>
+
+  <!-- ─── HEADER ─── -->
+  <header style="background: #fff; border-bottom: 1px solid #E5E9EC; position: sticky; top: 0; z-index: 100;">
+
+    <!-- Top row: search | logo | icons -->
+    <div style="display: flex; align-items: center; justify-content: space-between; padding: 16px 40px; max-width: 1400px; margin: 0 auto;">
+
+      <!-- Search -->
+      <div style="display: flex; align-items: center; gap: 6px; flex: 1;">
+        <button class="icon-btn" aria-label="Search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+          </svg>
+        </button>
+        <span style="font-size: 0.75rem; color: #6A7F8E; letter-spacing: 0.05em; cursor: pointer;" onclick="this.previousElementSibling.click()">Search</span>
+      </div>
+
+      <!-- Logo (centered) -->
+      <div style="flex: 0 0 auto; text-align: center; min-width: 220px;">
+        <a href="#" style="display: inline-block;">
+          <img src="/Brand_Assets/Untitled_Artwork.png" alt="The Oil Merchant" style="height: 80px; width: auto; display: block;" />
+        </a>
+      </div>
+
+      <!-- Icons: wishlist, account, cart -->
+      <div style="display: flex; align-items: center; gap: 4px; flex: 1; justify-content: flex-end;">
+        <button class="icon-btn" aria-label="Wishlist">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+        </button>
+        <button class="icon-btn" aria-label="Account">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+          </svg>
+        </button>
+        <button class="icon-btn" aria-label="Cart" style="position: relative;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>
+          </svg>
+          <span style="position: absolute; top: 2px; right: 2px; background: #2A6496; color: #fff; font-size: 0.55rem; font-weight: 700; width: 14px; height: 14px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Jost', sans-serif;">3</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Nav row -->
+    <nav style="border-top: 1px solid #E5E9EC; padding: 0 40px;">
+      <div style="max-width: 1400px; margin: 0 auto; display: flex; align-items: center; justify-content: center; gap: 36px; height: 44px;">
+        <a href="#" class="nav-link">Hair Care</a>
+        <a href="#" class="nav-link">Scalp</a>
+        <a href="#" class="nav-link">Body</a>
+        <a href="#" class="nav-link">Face</a>
+        <a href="#" class="nav-link">Sets</a>
+        <a href="#" class="nav-link">All Oils</a>
+        <a href="#" class="nav-link">Rituals</a>
+        <a href="#" class="nav-link" style="color: #7D9B77;">Sale</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ─── HERO BANNER ─── -->
+  <section style="position: relative; width: 100%; height: 520px; overflow: hidden; background: #D4EAF5;">
+
+    <!-- Background image with overlay -->
+    <img src="https://placehold.co/1440x520/2A6496/2A6496" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0;" />
+
+    <!-- Layered gradient bg -->
+    <div style="position: absolute; inset: 0; background: radial-gradient(ellipse at 70% 50%, #5B9EC9 0%, #2A6496 45%, #1C2B3A 100%);"></div>
+    <div style="position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 80%, rgba(125,155,119,0.3) 0%, transparent 60%);"></div>
+
+    <!-- Dot trail layer -->
+    <div id="hero-pixel-trail" style="position:absolute;inset:0;z-index:1;pointer-events:none;"></div>
+
+    <!-- Product image (right side) -->
+    <div style="position: absolute; right: 8%; top: 50%; transform: translateY(-50%); height: 400px; width: 340px; z-index: 2;">
+      <div style="position: absolute; inset: 0; border-radius: 4px; overflow: hidden;">
+        <img src="https://placehold.co/340x400/D4EAF5/2A6496?text=Pure+Oil" alt="Product" style="width: 100%; height: 100%; object-fit: cover;" />
+        <div style="position: absolute; inset: 0; background: linear-gradient(135deg, rgba(42,100,150,0.2) 0%, transparent 60%); mix-blend-mode: multiply;"></div>
+      </div>
+    </div>
+
+    <!-- Text content (left) -->
+    <div style="position: absolute; left: 8%; top: 50%; transform: translateY(-50%); max-width: 460px; z-index: 2;">
+      <p class="section-label" style="color: rgba(212,234,245,0.8); margin: 0 0 16px;">Made in Pakistan</p>
+      <h1 style="font-family: 'Libre Baskerville', serif; font-size: 3.2rem; font-weight: 400; color: #fff; line-height: 1.1; letter-spacing: -0.03em; margin: 0 0 12px;">From Root<br/>to <em>Ritual.</em></h1>
+      <p style="font-family: 'Jost', sans-serif; font-size: 0.9rem; font-weight: 300; color: rgba(255,255,255,0.8); line-height: 1.7; margin: 0 0 32px; max-width: 340px;">Nature extracts the best. We deliver it to you — pure hair oils, honestly made, now delivered across Pakistan.</p>
+      <a href="#" class="btn-outline-white">Shop the Collection</a>
+    </div>
+
+    <!-- Carousel dots -->
+    <div style="position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 2;">
+      <div class="dot active"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+  </section>
+
+  <!-- ─── SHOP BY COLLECTION ─── -->
+  <section style="padding: 48px 40px 0; max-width: 1400px; margin: 0 auto;">
+    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px;">
+      <div>
+        <p class="section-label" style="margin: 0 0 6px;">Explore</p>
+        <h2 style="font-family: 'Libre Baskerville', serif; font-size: 1.4rem; font-weight: 400; margin: 0; letter-spacing: -0.02em;">Shop by Collection</h2>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div style="display: flex; gap: 0; flex-wrap: wrap; margin-bottom: 40px;">
+      <button class="tab-btn active" onclick="setTab(this)">Featured</button>
+      <button class="tab-btn" onclick="setTab(this)">Essential Oils</button>
+      <button class="tab-btn" onclick="setTab(this)">Carrier Oils</button>
+      <button class="tab-btn" onclick="setTab(this)">Hair Care</button>
+      <button class="tab-btn" onclick="setTab(this)">Body Oils</button>
+      <button class="tab-btn" onclick="setTab(this)">Butters</button>
+    </div>
+  </section>
+
+  <!-- ─── BESTSELLERS PRODUCT GRID ─── -->
+  <section id="bestsellers" style="padding: 0 40px 56px; max-width: 1400px; margin: 0 auto;">
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;">
+
+      <!-- Product 1 -->
+      <div class="product-card" style="position: relative;">
+        <div style="position: relative; overflow: hidden; background: #EEF5FA; aspect-ratio: 3/4; margin-bottom: 14px;">
+          <img src="https://placehold.co/320x427/EEF5FA/2A6496?text=Aloe+Vera+Gel" alt="Aloe Vera Gel" style="width: 100%; height: 100%; object-fit: cover;" />
+          <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(28,43,58,0.4) 0%, transparent 50%); mix-blend-mode: multiply;"></div>
+          <span style="position: absolute; top: 12px; left: 12px; background: #7D9B77; color: #fff; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 10px;">Best Seller</span>
+          <div class="quick-add" style="position: absolute; bottom: 0; left: 0; right: 0; padding: 12px;">
+            <button class="btn-primary" style="width: 100%; padding: 10px; font-size: 0.65rem;">Quick Add</button>
+          </div>
+        </div>
+        <p style="font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #6A7F8E; margin: 0 0 4px;">Featured · 120ml</p>
+        <p style="font-family: 'Jost', sans-serif; font-size: 0.875rem; font-weight: 400; margin: 0 0 6px; line-height: 1.4;">Aloe Vera Gel</p>
+        <p style="font-size: 0.875rem; font-weight: 500; margin: 0; color: #1C2B3A;">PKR 800</p>
+      </div>
+
+      <!-- Product 2 -->
+      <div class="product-card" style="position: relative;">
+        <div style="position: relative; overflow: hidden; background: #F7F4EF; aspect-ratio: 3/4; margin-bottom: 14px;">
+          <img src="https://placehold.co/320x427/F7F4EF/7D9B77?text=Rosehip+Oil" alt="Rosehip Oil" style="width: 100%; height: 100%; object-fit: cover;" />
+          <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(28,43,58,0.4) 0%, transparent 50%); mix-blend-mode: multiply;"></div>
+          <span style="position: absolute; top: 12px; left: 12px; background: #7D9B77; color: #fff; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 10px;">Best Seller</span>
+          <div class="quick-add" style="position: absolute; bottom: 0; left: 0; right: 0; padding: 12px;">
+            <button class="btn-primary" style="width: 100%; padding: 10px; font-size: 0.65rem;">Quick Add</button>
+          </div>
+        </div>
+        <p style="font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #6A7F8E; margin: 0 0 4px;">Featured · 30ml</p>
+        <p style="font-family: 'Jost', sans-serif; font-size: 0.875rem; font-weight: 400; margin: 0 0 6px; line-height: 1.4;">Rosehip Oil</p>
+        <p style="font-size: 0.875rem; font-weight: 500; margin: 0; color: #1C2B3A;">PKR 1,350</p>
+      </div>
+
+      <!-- Product 3 -->
+      <div class="product-card" style="position: relative;">
+        <div style="position: relative; overflow: hidden; background: #D4EAF5; aspect-ratio: 3/4; margin-bottom: 14px;">
+          <img src="https://placehold.co/320x427/D4EAF5/1C2B3A?text=Egg+Oil" alt="Egg Oil" style="width: 100%; height: 100%; object-fit: cover;" />
+          <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(28,43,58,0.4) 0%, transparent 50%); mix-blend-mode: multiply;"></div>
+          <div class="quick-add" style="position: absolute; bottom: 0; left: 0; right: 0; padding: 12px;">
+            <button class="btn-primary" style="width: 100%; padding: 10px; font-size: 0.65rem;">Quick Add</button>
+          </div>
+        </div>
+        <p style="font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #6A7F8E; margin: 0 0 4px;">Featured · 30ml</p>
+        <p style="font-family: 'Jost', sans-serif; font-size: 0.875rem; font-weight: 400; margin: 0 0 6px; line-height: 1.4;">Egg Oil</p>
+        <p style="font-size: 0.875rem; font-weight: 500; margin: 0; color: #1C2B3A;">PKR 1,000</p>
+      </div>
+
+      <!-- Product 4 -->
+      <div class="product-card" style="position: relative;">
+        <div style="position: relative; overflow: hidden; background: #EEF5FA; aspect-ratio: 3/4; margin-bottom: 14px;">
+          <img src="https://placehold.co/320x427/EEF5FA/5B9EC9?text=Garlic+Oil" alt="Garlic Oil" style="width: 100%; height: 100%; object-fit: cover;" />
+          <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(28,43,58,0.4) 0%, transparent 50%); mix-blend-mode: multiply;"></div>
+          <div class="quick-add" style="position: absolute; bottom: 0; left: 0; right: 0; padding: 12px;">
+            <button class="btn-primary" style="width: 100%; padding: 10px; font-size: 0.65rem;">Quick Add</button>
+          </div>
+        </div>
+        <p style="font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #6A7F8E; margin: 0 0 4px;">Featured · 30ml</p>
+        <p style="font-family: 'Jost', sans-serif; font-size: 0.875rem; font-weight: 400; margin: 0 0 6px; line-height: 1.4;">Garlic Oil</p>
+        <p style="font-size: 0.875rem; font-weight: 500; margin: 0; color: #1C2B3A;">PKR 1,000</p>
+      </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 40px;">
+      <a href="#" class="btn-outline">View All Bestsellers</a>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ─── EDITORIAL BANNER 1: Split layout ─── -->
+  <section style="display: grid; grid-template-columns: 1fr 1fr; min-height: 480px; max-width: 100%;">
+
+    <!-- Image side -->
+    <div style="position: relative; overflow: hidden; background: #D4EAF5;">
+      <img src="https://placehold.co/720x480/5B9EC9/fff?text=Scalp+Ritual" alt="Scalp Ritual" style="width: 100%; height: 100%; object-fit: cover;" />
+      <div style="position: absolute; inset: 0; background: linear-gradient(to right, transparent 60%, rgba(28,43,58,0.15)); "></div>
+    </div>
+
+    <!-- Content side -->
+    <div style="background: #1C2B3A; display: flex; flex-direction: column; justify-content: center; padding: 64px 72px;">
+      <p class="section-label" style="color: rgba(212,234,245,0.7); margin: 0 0 16px;">The Ritual Edit</p>
+      <h2 style="font-family: 'Libre Baskerville', serif; font-size: 2.2rem; font-weight: 400; color: #fff; line-height: 1.15; letter-spacing: -0.03em; margin: 0 0 20px;">Scalp Serum<br/><em>Oil Treatment</em></h2>
+      <p style="font-family: 'Jost', sans-serif; font-size: 0.875rem; font-weight: 300; color: rgba(255,255,255,0.75); line-height: 1.8; margin: 0 0 36px; max-width: 360px;">Every drop, cold-pressed and consecrated. Our scalp treatment oils are sourced for efficacy — nothing added, nothing hidden.</p>
+      <a href="#" class="btn-outline-white" style="align-self: flex-start;">Shop the Edit</a>
+    </div>
+  </section>
+
+  <!-- ─── EDITORIAL BANNER 2: Seasonal full-width ─── -->
+  <section style="position: relative; min-height: 420px; overflow: hidden; background: #F7F4EF;">
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; min-height: 420px;">
+
+      <!-- Content left -->
+      <div style="display: flex; flex-direction: column; justify-content: center; padding: 64px 72px 64px 10%;">
+        <p class="section-label" style="margin: 0 0 14px; color: #7D9B77;">Seasonal Harvest</p>
+        <h2 style="font-family: 'Libre Baskerville', serif; font-size: 2.4rem; font-weight: 400; color: #1C2B3A; line-height: 1.1; letter-spacing: -0.03em; margin: 0 0 16px;">Golden Hour<br/>Hair Oil</h2>
+        <p style="font-size: 0.875rem; font-weight: 300; color: #6A7F8E; line-height: 1.8; margin: 0 0 32px; max-width: 340px;">Nature extracts the best. Limited harvest sunflower oil — golden-pressed for brilliant shine and deep conditioning in Pakistan's climate.</p>
+        <a href="#" class="btn-primary" style="align-self: flex-start;">Shop Now</a>
+      </div>
+
+      <!-- Image right -->
+      <div style="position: relative; overflow: hidden; background: #EEF5FA;">
+        <img src="https://placehold.co/720x420/F7E8C0/B8860B?text=Golden+Oil" alt="Golden Hour Oil" style="width: 100%; height: 100%; object-fit: cover;" />
+        <div style="position: absolute; inset: 0; background: linear-gradient(to left, transparent 60%, rgba(247,244,239,0.4));"></div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ─── NEW ARRIVALS ─── -->
+  <section style="padding: 56px 40px; max-width: 1400px; margin: 0 auto;">
+    <div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 36px;">
+      <div>
+        <p class="section-label" style="margin: 0 0 6px;">Just Landed</p>
+        <h2 style="font-family: 'Libre Baskerville', serif; font-size: 1.4rem; font-weight: 400; margin: 0; letter-spacing: -0.02em;">New Arrivals</h2>
+      </div>
+      <a href="#" class="nav-link" style="font-size: 0.72rem;">View All</a>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;">
+
+      <!-- New Product 1 -->
+      <div class="product-card">
+        <div style="position: relative; overflow: hidden; background: #EEF5FA; aspect-ratio: 3/4; margin-bottom: 14px;">
+          <img src="https://placehold.co/320x427/EEF5FA/2A6496?text=Pumpkin+Seed+Oil" alt="Pumpkin Seed Oil" style="width: 100%; height: 100%; object-fit: cover;" />
+          <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(28,43,58,0.4) 0%, transparent 50%); mix-blend-mode: multiply;"></div>
+          <span style="position: absolute; top: 12px; left: 12px; background: #2A6496; color: #fff; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 10px;">New</span>
+          <div class="quick-add" style="position: absolute; bottom: 0; left: 0; right: 0; padding: 12px;">
+            <button class="btn-primary" style="width: 100%; padding: 10px; font-size: 0.65rem;">Quick Add</button>
+          </div>
+        </div>
+        <p style="font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #6A7F8E; margin: 0 0 4px;">Featured · 30ml</p>
+        <p style="font-size: 0.875rem; font-weight: 400; margin: 0 0 6px; line-height: 1.4;">Pumpkin Seed Oil</p>
+        <p style="font-size: 0.875rem; font-weight: 500; margin: 0;">PKR 1,200</p>
+      </div>
+
+      <!-- New Product 2 -->
+      <div class="product-card">
+        <div style="position: relative; overflow: hidden; background: #F7F4EF; aspect-ratio: 3/4; margin-bottom: 14px;">
+          <img src="https://placehold.co/320x427/F7F4EF/7D9B77?text=Hemp+Seed+Oil" alt="Hemp Seed Oil" style="width: 100%; height: 100%; object-fit: cover;" />
+          <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(28,43,58,0.4) 0%, transparent 50%); mix-blend-mode: multiply;"></div>
+          <span style="position: absolute; top: 12px; left: 12px; background: #2A6496; color: #fff; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 10px;">New</span>
+          <div class="quick-add" style="position: absolute; bottom: 0; left: 0; right: 0; padding: 12px;">
+            <button class="btn-primary" style="width: 100%; padding: 10px; font-size: 0.65rem;">Quick Add</button>
+          </div>
+        </div>
+        <p style="font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #6A7F8E; margin: 0 0 4px;">Featured · 30ml</p>
+        <p style="font-size: 0.875rem; font-weight: 400; margin: 0 0 6px; line-height: 1.4;">Hemp Seed Oil</p>
+        <p style="font-size: 0.875rem; font-weight: 500; margin: 0;">PKR 1,000</p>
+      </div>
+
+      <!-- New Product 3 -->
+      <div class="product-card">
+        <div style="position: relative; overflow: hidden; background: #D4EAF5; aspect-ratio: 3/4; margin-bottom: 14px;">
+          <img src="https://placehold.co/320x427/D4EAF5/1C2B3A?text=Turmeric+Oil" alt="Turmeric Oil" style="width: 100%; height: 100%; object-fit: cover;" />
+          <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(28,43,58,0.4) 0%, transparent 50%); mix-blend-mode: multiply;"></div>
+          <span style="position: absolute; top: 12px; left: 12px; background: #2A6496; color: #fff; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 10px;">New</span>
+          <div class="quick-add" style="position: absolute; bottom: 0; left: 0; right: 0; padding: 12px;">
+            <button class="btn-primary" style="width: 100%; padding: 10px; font-size: 0.65rem;">Quick Add</button>
+          </div>
+        </div>
+        <p style="font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #6A7F8E; margin: 0 0 4px;">Featured · 30ml</p>
+        <p style="font-size: 0.875rem; font-weight: 400; margin: 0 0 6px; line-height: 1.4;">Turmeric Oil</p>
+        <p style="font-size: 0.875rem; font-weight: 500; margin: 0;">PKR 1,200</p>
+      </div>
+
+      <!-- New Product 4 -->
+      <div class="product-card">
+        <div style="position: relative; overflow: hidden; background: #EEF5FA; aspect-ratio: 3/4; margin-bottom: 14px;">
+          <img src="https://placehold.co/320x427/EEF5FA/5B9EC9?text=Vitamin+E+Oil" alt="Vitamin E Oil" style="width: 100%; height: 100%; object-fit: cover;" />
+          <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(28,43,58,0.4) 0%, transparent 50%); mix-blend-mode: multiply;"></div>
+          <span style="position: absolute; top: 12px; left: 12px; background: #2A6496; color: #fff; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 10px;">New</span>
+          <div class="quick-add" style="position: absolute; bottom: 0; left: 0; right: 0; padding: 12px;">
+            <button class="btn-primary" style="width: 100%; padding: 10px; font-size: 0.65rem;">Quick Add</button>
+          </div>
+        </div>
+        <p style="font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #6A7F8E; margin: 0 0 4px;">Featured · 30ml</p>
+        <p style="font-size: 0.875rem; font-weight: 400; margin: 0 0 6px; line-height: 1.4;">Vitamin E Oil</p>
+        <p style="font-size: 0.875rem; font-weight: 500; margin: 0;">PKR 1,500</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ─── SHOP BY CATEGORY ─── -->
+  <section style="padding: 56px 40px; max-width: 1400px; margin: 0 auto;">
+    <div style="text-align: center; margin-bottom: 40px;">
+      <p class="section-label" style="margin: 0 0 8px;">Explore the Range</p>
+      <h2 style="font-family: 'Libre Baskerville', serif; font-size: 1.4rem; font-weight: 400; margin: 0; letter-spacing: -0.02em;">Shop by Category</h2>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;">
+
+      <!-- Category: Featured -->
+      <a href="#" style="text-decoration: none; display: block;" class="brand-card">
+        <div style="position: relative; overflow: hidden; background: linear-gradient(135deg, #2A6496 0%, #1C2B3A 100%); padding: 40px 24px 32px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; min-height: 200px;">
+          <div style="position: absolute; top: 24px; right: 24px; width: 48px; height: 48px; border-radius: 50%; background: rgba(212,234,245,0.15); display: flex; align-items: center; justify-content: center;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(212,234,245,0.9)" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p style="font-family: 'Libre Baskerville', serif; font-size: 1.15rem; font-weight: 700; color: #fff; margin: 0 0 4px; text-align: center;">Featured</p>
+          <p style="font-size: 0.65rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(212,234,245,0.7); margin: 0;">11 Oils</p>
+        </div>
+      </a>
+
+      <!-- Category: Essential Oils -->
+      <a href="#" style="text-decoration: none; display: block;" class="brand-card">
+        <div style="position: relative; overflow: hidden; background: linear-gradient(135deg, #5B9EC9 0%, #2A6496 100%); padding: 40px 24px 32px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; min-height: 200px;">
+          <div style="position: absolute; top: 24px; right: 24px; width: 48px; height: 48px; border-radius: 50%; background: rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <p style="font-family: 'Libre Baskerville', serif; font-size: 1.15rem; font-weight: 700; color: #fff; margin: 0 0 4px; text-align: center;">Essential Oils</p>
+          <p style="font-size: 0.65rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.65); margin: 0;">23 Oils</p>
+        </div>
+      </a>
+
+      <!-- Category: Carrier Oils -->
+      <a href="#" style="text-decoration: none; display: block;" class="brand-card">
+        <div style="position: relative; overflow: hidden; background: linear-gradient(135deg, #7D9B77 0%, #4a6b45 100%); padding: 40px 24px 32px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; min-height: 200px;">
+          <div style="position: absolute; top: 24px; right: 24px; width: 48px; height: 48px; border-radius: 50%; background: rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="1.5"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></svg>
+          </div>
+          <p style="font-family: 'Libre Baskerville', serif; font-size: 1.15rem; font-weight: 700; color: #fff; margin: 0 0 4px; text-align: center;">Carrier Oils</p>
+          <p style="font-size: 0.65rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.65); margin: 0;">14 Oils</p>
+        </div>
+      </a>
+
+      <!-- Category: Butters & Waxes -->
+      <a href="#" style="text-decoration: none; display: block;" class="brand-card">
+        <div style="position: relative; overflow: hidden; background: linear-gradient(135deg, #C8A96E 0%, #8a6a30 100%); padding: 40px 24px 32px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; min-height: 200px;">
+          <div style="position: absolute; top: 24px; right: 24px; width: 48px; height: 48px; border-radius: 50%; background: rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+          </div>
+          <p style="font-family: 'Libre Baskerville', serif; font-size: 1.15rem; font-weight: 700; color: #fff; margin: 0 0 4px; text-align: center;">Butters &amp; Waxes</p>
+          <p style="font-size: 0.65rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.65); margin: 0;">3 Products</p>
+        </div>
+      </a>
+    </div>
+
+    <div style="text-align: center; margin-top: 32px;">
+      <a href="#" class="btn-outline">View All Oils</a>
+    </div>
+  </section>
+
+  <!-- ─── REWARDS CTA ─── -->
+  <section style="background: #1C2B3A; padding: 72px 40px;">
+    <div style="max-width: 560px; margin: 0 auto; text-align: center;">
+      <p class="section-label" style="color: rgba(212,234,245,0.7); margin: 0 0 16px;">Membership</p>
+      <h2 style="font-family: 'Libre Baskerville', serif; font-size: 2rem; font-weight: 400; color: #fff; line-height: 1.2; letter-spacing: -0.03em; margin: 0 0 12px;">Enroll in Oil Rewards<br/>for Free Delivery</h2>
+      <p style="font-size: 0.875rem; font-weight: 300; color: rgba(255,255,255,0.65); margin: 0 0 36px; line-height: 1.7;">Join our community. Earn points on every purchase, unlock exclusive early access, and get free delivery anywhere in Pakistan.</p>
+      <div style="display: flex; gap: 0; max-width: 420px; margin: 0 auto;">
+        <input
+          type="email"
+          placeholder="Your email address"
+          style="flex: 1; padding: 14px 20px; font-family: 'Jost', sans-serif; font-size: 0.875rem; border: 1px solid rgba(255,255,255,0.25); background: rgba(255,255,255,0.08); color: #fff; outline: none; transition: border-color 0.2s;"
+          onfocus="this.style.borderColor='rgba(91,158,201,0.7)'"
+          onblur="this.style.borderColor='rgba(255,255,255,0.25)'"
+        />
+        <button class="btn-primary" style="white-space: nowrap; background: #2A6496; padding: 14px 24px;">Join Free</button>
+      </div>
+      <!-- Big watermark logo -->
+      <div style="margin-top: 48px; opacity: 0.06;">
+        <img src="/Brand_Assets/Untitled_Artwork.png" alt="" style="height: 48px; filter: invert(1);" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─── -->
+  <footer style="background: #111820; padding: 56px 40px 32px;">
+    <div style="max-width: 1400px; margin: 0 auto;">
+
+      <!-- Footer columns -->
+      <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 48px;">
+
+        <!-- Brand column -->
+        <div>
+          <img src="/Brand_Assets/Untitled_Artwork.png" alt="The Oil Merchant" style="height: 30px; filter: invert(1); opacity: 0.9; margin-bottom: 20px; display: block;" />
+          <p style="font-size: 0.8rem; font-weight: 300; color: rgba(255,255,255,0.5); line-height: 1.8; max-width: 240px; margin: 0 0 24px;">From root to ritual — pure oils, honestly made.<br/>Delivering across Pakistan: Karachi, Lahore, Islamabad &amp; beyond.</p>
+          <!-- Social icons -->
+          <div style="display: flex; gap: 16px;">
+            <a href="#" style="color: rgba(255,255,255,0.5); transition: color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.5)'">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+            <a href="#" style="color: rgba(255,255,255,0.5); transition: color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.5)'">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
+            </a>
+            <a href="#" style="color: rgba(255,255,255,0.5); transition: color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.5)'">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Column 2: Shop -->
+        <div>
+          <h4 style="font-size: 0.65rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.6); margin: 0 0 16px;">Shop</h4>
+          <a href="#" class="footer-link">Hair Oils</a>
+          <a href="#" class="footer-link">Scalp Treatments</a>
+          <a href="#" class="footer-link">Body Oils</a>
+          <a href="#" class="footer-link">Face Oils</a>
+          <a href="#" class="footer-link">Gift Sets</a>
+          <a href="#" class="footer-link">Sale</a>
+        </div>
+
+        <!-- Column 3: Categories -->
+        <div>
+          <h4 style="font-size: 0.65rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.6); margin: 0 0 16px;">Categories</h4>
+          <a href="#" class="footer-link">Featured</a>
+          <a href="#" class="footer-link">Essential Oils</a>
+          <a href="#" class="footer-link">Carrier Oils</a>
+          <a href="#" class="footer-link">Butters &amp; Waxes</a>
+          <a href="#" class="footer-link">View All Oils</a>
+        </div>
+
+        <!-- Column 4: About -->
+        <div>
+          <h4 style="font-size: 0.65rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.6); margin: 0 0 16px;">About</h4>
+          <a href="#" class="footer-link">Our Story</a>
+          <a href="#" class="footer-link">The Ritual</a>
+          <a href="#" class="footer-link">Sustainability</a>
+          <a href="#" class="footer-link">Blog</a>
+          <a href="#" class="footer-link">Press</a>
+        </div>
+
+        <!-- Column 5: Help -->
+        <div>
+          <h4 style="font-size: 0.65rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.6); margin: 0 0 16px;">Help</h4>
+          <a href="#" class="footer-link">Track Order</a>
+          <a href="#" class="footer-link">Returns & Exchanges</a>
+          <a href="#" class="footer-link">Shipping Info</a>
+          <a href="#" class="footer-link">FAQs</a>
+          <a href="#" class="footer-link">Contact Us</a>
+        </div>
+      </div>
+
+      <!-- Footer bottom -->
+      <div style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+        <p style="font-size: 0.72rem; color: rgba(255,255,255,0.35); margin: 0;">© 2026 The Oil Merchant Pakistan. All rights reserved.</p>
+        <div style="display: flex; gap: 24px;">
+          <a href="#" style="font-size: 0.72rem; color: rgba(255,255,255,0.35); text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='rgba(255,255,255,0.7)'" onmouseout="this.style.color='rgba(255,255,255,0.35)'">Privacy Policy</a>
+          <a href="#" style="font-size: 0.72rem; color: rgba(255,255,255,0.35); text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='rgba(255,255,255,0.7)'" onmouseout="this.style.color='rgba(255,255,255,0.35)'">Terms of Service</a>
+          <a href="#" style="font-size: 0.72rem; color: rgba(255,255,255,0.35); text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='rgba(255,255,255,0.7)'" onmouseout="this.style.color='rgba(255,255,255,0.35)'">Accessibility</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Tab switching
+    function setTab(el) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      el.classList.add('active');
+    }
+
+    // Carousel dot cycling (simple demo)
+    const dots = document.querySelectorAll('.dot');
+    let current = 0;
+    setInterval(() => {
+      dots[current].classList.remove('active');
+      current = (current + 1) % dots.length;
+      dots[current].classList.add('active');
+    }, 3500);
+
+    // ── Dot Trail ────────────────────────────────────────────────────────
+    (function () {
+      const DOT_SIZE    = window.innerWidth < 768 ? 28 : 40; // cell size in px
+      const HOLD        = 200;   // ms at full opacity before fading
+      const FADE        = 800;   // ms fade duration
+
+      const hero  = document.querySelector('section');
+      const trail = document.getElementById('hero-pixel-trail');
+      if (!hero || !trail) return;
+
+      let cols = 0, rows = 0, dots = [];
+
+      function buildGrid() {
+        const w = hero.offsetWidth;
+        const h = hero.offsetHeight;
+        cols = Math.ceil(w / DOT_SIZE);
+        rows = Math.ceil(h / DOT_SIZE);
+        trail.innerHTML = '';
+        dots = [];
+
+        for (let r = 0; r < rows; r++) {
+          for (let c = 0; c < cols; c++) {
+            const el = document.createElement('div');
+            // Circle dot, radial-gradient glow, initially invisible
+            el.style.cssText = [
+              'position:absolute',
+              `left:${c * DOT_SIZE + DOT_SIZE * 0.1}px`,
+              `top:${r * DOT_SIZE + DOT_SIZE * 0.1}px`,
+              `width:${DOT_SIZE * 0.8}px`,
+              `height:${DOT_SIZE * 0.8}px`,
+              'border-radius:50%',
+              'opacity:0',
+              'will-change:opacity',
+              'background:radial-gradient(circle, rgba(212,234,245,0.95) 0%, rgba(91,158,201,0.55) 55%, transparent 100%)',
+            ].join(';');
+            trail.appendChild(el);
+            dots.push({ el, tid: null, rafId: null });
+          }
+        }
+      }
+
+      function light(idx) {
+        const d = dots[idx];
+        if (!d) return;
+        if (d.rafId) cancelAnimationFrame(d.rafId);
+        clearTimeout(d.tid);
+
+        d.el.style.opacity = '1';
+
+        d.tid = setTimeout(() => {
+          const t0 = performance.now();
+          function step(now) {
+            const p = Math.min((now - t0) / FADE, 1);
+            // ease-out quart
+            const eased = 1 - Math.pow(1 - p, 4);
+            d.el.style.opacity = String(1 - eased);
+            if (p < 1) d.rafId = requestAnimationFrame(step);
+            else d.el.style.opacity = '0';
+          }
+          d.rafId = requestAnimationFrame(step);
+        }, HOLD);
+      }
+
+      let lastC = -1, lastR = -1;
+      hero.addEventListener('mousemove', e => {
+        const rect = hero.getBoundingClientRect();
+        const c = Math.floor((e.clientX - rect.left) / DOT_SIZE);
+        const r = Math.floor((e.clientY - rect.top)  / DOT_SIZE);
+        if (c === lastC && r === lastR) return;
+        lastC = c; lastR = r;
+        if (c < 0 || r < 0 || c >= cols || r >= rows) return;
+        light(r * cols + c);
+      }, { passive: true });
+
+      let rTid;
+      window.addEventListener('resize', () => { clearTimeout(rTid); rTid = setTimeout(buildGrid, 200); });
+
+      buildGrid();
+    })();
+    // ─────────────────────────────────────────────────────────────────────
+  </script>
+
+</body>
+</html>
