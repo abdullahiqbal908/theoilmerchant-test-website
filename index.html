@@ -201,7 +201,7 @@
       <!-- Logo (centered) -->
       <div style="flex: 0 0 auto; text-align: center; min-width: 220px;">
         <a href="#" style="display: inline-block;">
-          <img src="/Brand_Assets/Untitled_Artwork.png" alt="The Oil Merchant" style="height: 80px; width: auto; display: block;" />
+          <img src="/brand_assets/Untitled_Artwork.png" alt="The Oil Merchant" style="height: 80px; width: auto; display: block;" />
         </a>
       </div>
 
@@ -285,85 +285,22 @@
         <p class="section-label" style="margin: 0 0 6px;">Explore</p>
         <h2 style="font-family: 'Libre Baskerville', serif; font-size: 1.4rem; font-weight: 400; margin: 0; letter-spacing: -0.02em;">Shop by Collection</h2>
       </div>
+      <span id="product-count" style="font-size: 0.72rem; color: #6A7F8E; font-weight: 500; letter-spacing: 0.05em;"></span>
     </div>
 
     <!-- Tabs -->
     <div style="display: flex; gap: 0; flex-wrap: wrap; margin-bottom: 40px;">
-      <button class="tab-btn active" onclick="setTab(this)">Featured</button>
-      <button class="tab-btn" onclick="setTab(this)">Essential Oils</button>
-      <button class="tab-btn" onclick="setTab(this)">Carrier Oils</button>
-      <button class="tab-btn" onclick="setTab(this)">Hair Care</button>
-      <button class="tab-btn" onclick="setTab(this)">Body Oils</button>
-      <button class="tab-btn" onclick="setTab(this)">Butters</button>
+      <button class="tab-btn active" onclick="setTab(this,'all')">All</button>
+      <button class="tab-btn" onclick="setTab(this,'Featured')">Featured</button>
+      <button class="tab-btn" onclick="setTab(this,'Essential oil')">Essential Oils</button>
+      <button class="tab-btn" onclick="setTab(this,'Carrier Oil')">Carrier Oils</button>
+      <button class="tab-btn" onclick="setTab(this,'Butters')">Butters &amp; Waxes</button>
     </div>
   </section>
 
-  <!-- ─── BESTSELLERS PRODUCT GRID ─── -->
-  <section id="bestsellers" style="padding: 0 40px 56px; max-width: 1400px; margin: 0 auto;">
-    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;">
-
-      <!-- Product 1 -->
-      <div class="product-card" style="position: relative;">
-        <div style="position: relative; overflow: hidden; background: #EEF5FA; aspect-ratio: 3/4; margin-bottom: 14px;">
-          <img src="https://placehold.co/320x427/EEF5FA/2A6496?text=Aloe+Vera+Gel" alt="Aloe Vera Gel" style="width: 100%; height: 100%; object-fit: cover;" />
-          <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(28,43,58,0.4) 0%, transparent 50%); mix-blend-mode: multiply;"></div>
-          <span style="position: absolute; top: 12px; left: 12px; background: #7D9B77; color: #fff; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 10px;">Best Seller</span>
-          <div class="quick-add" style="position: absolute; bottom: 0; left: 0; right: 0; padding: 12px;">
-            <button class="btn-primary" style="width: 100%; padding: 10px; font-size: 0.65rem;">Quick Add</button>
-          </div>
-        </div>
-        <p style="font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #6A7F8E; margin: 0 0 4px;">Featured · 120ml</p>
-        <p style="font-family: 'Jost', sans-serif; font-size: 0.875rem; font-weight: 400; margin: 0 0 6px; line-height: 1.4;">Aloe Vera Gel</p>
-        <p style="font-size: 0.875rem; font-weight: 500; margin: 0; color: #1C2B3A;">PKR 800</p>
-      </div>
-
-      <!-- Product 2 -->
-      <div class="product-card" style="position: relative;">
-        <div style="position: relative; overflow: hidden; background: #F7F4EF; aspect-ratio: 3/4; margin-bottom: 14px;">
-          <img src="https://placehold.co/320x427/F7F4EF/7D9B77?text=Rosehip+Oil" alt="Rosehip Oil" style="width: 100%; height: 100%; object-fit: cover;" />
-          <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(28,43,58,0.4) 0%, transparent 50%); mix-blend-mode: multiply;"></div>
-          <span style="position: absolute; top: 12px; left: 12px; background: #7D9B77; color: #fff; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 10px;">Best Seller</span>
-          <div class="quick-add" style="position: absolute; bottom: 0; left: 0; right: 0; padding: 12px;">
-            <button class="btn-primary" style="width: 100%; padding: 10px; font-size: 0.65rem;">Quick Add</button>
-          </div>
-        </div>
-        <p style="font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #6A7F8E; margin: 0 0 4px;">Featured · 30ml</p>
-        <p style="font-family: 'Jost', sans-serif; font-size: 0.875rem; font-weight: 400; margin: 0 0 6px; line-height: 1.4;">Rosehip Oil</p>
-        <p style="font-size: 0.875rem; font-weight: 500; margin: 0; color: #1C2B3A;">PKR 1,350</p>
-      </div>
-
-      <!-- Product 3 -->
-      <div class="product-card" style="position: relative;">
-        <div style="position: relative; overflow: hidden; background: #D4EAF5; aspect-ratio: 3/4; margin-bottom: 14px;">
-          <img src="https://placehold.co/320x427/D4EAF5/1C2B3A?text=Egg+Oil" alt="Egg Oil" style="width: 100%; height: 100%; object-fit: cover;" />
-          <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(28,43,58,0.4) 0%, transparent 50%); mix-blend-mode: multiply;"></div>
-          <div class="quick-add" style="position: absolute; bottom: 0; left: 0; right: 0; padding: 12px;">
-            <button class="btn-primary" style="width: 100%; padding: 10px; font-size: 0.65rem;">Quick Add</button>
-          </div>
-        </div>
-        <p style="font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #6A7F8E; margin: 0 0 4px;">Featured · 30ml</p>
-        <p style="font-family: 'Jost', sans-serif; font-size: 0.875rem; font-weight: 400; margin: 0 0 6px; line-height: 1.4;">Egg Oil</p>
-        <p style="font-size: 0.875rem; font-weight: 500; margin: 0; color: #1C2B3A;">PKR 1,000</p>
-      </div>
-
-      <!-- Product 4 -->
-      <div class="product-card" style="position: relative;">
-        <div style="position: relative; overflow: hidden; background: #EEF5FA; aspect-ratio: 3/4; margin-bottom: 14px;">
-          <img src="https://placehold.co/320x427/EEF5FA/5B9EC9?text=Garlic+Oil" alt="Garlic Oil" style="width: 100%; height: 100%; object-fit: cover;" />
-          <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(28,43,58,0.4) 0%, transparent 50%); mix-blend-mode: multiply;"></div>
-          <div class="quick-add" style="position: absolute; bottom: 0; left: 0; right: 0; padding: 12px;">
-            <button class="btn-primary" style="width: 100%; padding: 10px; font-size: 0.65rem;">Quick Add</button>
-          </div>
-        </div>
-        <p style="font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #6A7F8E; margin: 0 0 4px;">Featured · 30ml</p>
-        <p style="font-family: 'Jost', sans-serif; font-size: 0.875rem; font-weight: 400; margin: 0 0 6px; line-height: 1.4;">Garlic Oil</p>
-        <p style="font-size: 0.875rem; font-weight: 500; margin: 0; color: #1C2B3A;">PKR 1,000</p>
-      </div>
-    </div>
-
-    <div style="text-align: center; margin-top: 40px;">
-      <a href="#" class="btn-outline">View All Bestsellers</a>
-    </div>
+  <!-- ─── PRODUCT GRID ─── -->
+  <section id="shop" style="padding: 0 40px 56px; max-width: 1400px; margin: 0 auto;">
+    <div id="product-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;"></div>
   </section>
 
   <hr class="divider" />
@@ -406,84 +343,6 @@
       </div>
     </div>
   </section>
-
-  <hr class="divider" />
-
-  <!-- ─── NEW ARRIVALS ─── -->
-  <section style="padding: 56px 40px; max-width: 1400px; margin: 0 auto;">
-    <div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 36px;">
-      <div>
-        <p class="section-label" style="margin: 0 0 6px;">Just Landed</p>
-        <h2 style="font-family: 'Libre Baskerville', serif; font-size: 1.4rem; font-weight: 400; margin: 0; letter-spacing: -0.02em;">New Arrivals</h2>
-      </div>
-      <a href="#" class="nav-link" style="font-size: 0.72rem;">View All</a>
-    </div>
-
-    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;">
-
-      <!-- New Product 1 -->
-      <div class="product-card">
-        <div style="position: relative; overflow: hidden; background: #EEF5FA; aspect-ratio: 3/4; margin-bottom: 14px;">
-          <img src="https://placehold.co/320x427/EEF5FA/2A6496?text=Pumpkin+Seed+Oil" alt="Pumpkin Seed Oil" style="width: 100%; height: 100%; object-fit: cover;" />
-          <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(28,43,58,0.4) 0%, transparent 50%); mix-blend-mode: multiply;"></div>
-          <span style="position: absolute; top: 12px; left: 12px; background: #2A6496; color: #fff; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 10px;">New</span>
-          <div class="quick-add" style="position: absolute; bottom: 0; left: 0; right: 0; padding: 12px;">
-            <button class="btn-primary" style="width: 100%; padding: 10px; font-size: 0.65rem;">Quick Add</button>
-          </div>
-        </div>
-        <p style="font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #6A7F8E; margin: 0 0 4px;">Featured · 30ml</p>
-        <p style="font-size: 0.875rem; font-weight: 400; margin: 0 0 6px; line-height: 1.4;">Pumpkin Seed Oil</p>
-        <p style="font-size: 0.875rem; font-weight: 500; margin: 0;">PKR 1,200</p>
-      </div>
-
-      <!-- New Product 2 -->
-      <div class="product-card">
-        <div style="position: relative; overflow: hidden; background: #F7F4EF; aspect-ratio: 3/4; margin-bottom: 14px;">
-          <img src="https://placehold.co/320x427/F7F4EF/7D9B77?text=Hemp+Seed+Oil" alt="Hemp Seed Oil" style="width: 100%; height: 100%; object-fit: cover;" />
-          <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(28,43,58,0.4) 0%, transparent 50%); mix-blend-mode: multiply;"></div>
-          <span style="position: absolute; top: 12px; left: 12px; background: #2A6496; color: #fff; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 10px;">New</span>
-          <div class="quick-add" style="position: absolute; bottom: 0; left: 0; right: 0; padding: 12px;">
-            <button class="btn-primary" style="width: 100%; padding: 10px; font-size: 0.65rem;">Quick Add</button>
-          </div>
-        </div>
-        <p style="font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #6A7F8E; margin: 0 0 4px;">Featured · 30ml</p>
-        <p style="font-size: 0.875rem; font-weight: 400; margin: 0 0 6px; line-height: 1.4;">Hemp Seed Oil</p>
-        <p style="font-size: 0.875rem; font-weight: 500; margin: 0;">PKR 1,000</p>
-      </div>
-
-      <!-- New Product 3 -->
-      <div class="product-card">
-        <div style="position: relative; overflow: hidden; background: #D4EAF5; aspect-ratio: 3/4; margin-bottom: 14px;">
-          <img src="https://placehold.co/320x427/D4EAF5/1C2B3A?text=Turmeric+Oil" alt="Turmeric Oil" style="width: 100%; height: 100%; object-fit: cover;" />
-          <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(28,43,58,0.4) 0%, transparent 50%); mix-blend-mode: multiply;"></div>
-          <span style="position: absolute; top: 12px; left: 12px; background: #2A6496; color: #fff; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 10px;">New</span>
-          <div class="quick-add" style="position: absolute; bottom: 0; left: 0; right: 0; padding: 12px;">
-            <button class="btn-primary" style="width: 100%; padding: 10px; font-size: 0.65rem;">Quick Add</button>
-          </div>
-        </div>
-        <p style="font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #6A7F8E; margin: 0 0 4px;">Featured · 30ml</p>
-        <p style="font-size: 0.875rem; font-weight: 400; margin: 0 0 6px; line-height: 1.4;">Turmeric Oil</p>
-        <p style="font-size: 0.875rem; font-weight: 500; margin: 0;">PKR 1,200</p>
-      </div>
-
-      <!-- New Product 4 -->
-      <div class="product-card">
-        <div style="position: relative; overflow: hidden; background: #EEF5FA; aspect-ratio: 3/4; margin-bottom: 14px;">
-          <img src="https://placehold.co/320x427/EEF5FA/5B9EC9?text=Vitamin+E+Oil" alt="Vitamin E Oil" style="width: 100%; height: 100%; object-fit: cover;" />
-          <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(28,43,58,0.4) 0%, transparent 50%); mix-blend-mode: multiply;"></div>
-          <span style="position: absolute; top: 12px; left: 12px; background: #2A6496; color: #fff; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 10px;">New</span>
-          <div class="quick-add" style="position: absolute; bottom: 0; left: 0; right: 0; padding: 12px;">
-            <button class="btn-primary" style="width: 100%; padding: 10px; font-size: 0.65rem;">Quick Add</button>
-          </div>
-        </div>
-        <p style="font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #6A7F8E; margin: 0 0 4px;">Featured · 30ml</p>
-        <p style="font-size: 0.875rem; font-weight: 400; margin: 0 0 6px; line-height: 1.4;">Vitamin E Oil</p>
-        <p style="font-size: 0.875rem; font-weight: 500; margin: 0;">PKR 1,500</p>
-      </div>
-    </div>
-  </section>
-
-  <hr class="divider" />
 
   <!-- ─── SHOP BY CATEGORY ─── -->
   <section style="padding: 56px 40px; max-width: 1400px; margin: 0 auto;">
@@ -562,7 +421,7 @@
       </div>
       <!-- Big watermark logo -->
       <div style="margin-top: 48px; opacity: 0.06;">
-        <img src="/Brand_Assets/Untitled_Artwork.png" alt="" style="height: 48px; filter: invert(1);" />
+        <img src="/brand_assets/Untitled_Artwork.png" alt="" style="height: 48px; filter: invert(1);" />
       </div>
     </div>
   </section>
@@ -576,7 +435,7 @@
 
         <!-- Brand column -->
         <div>
-          <img src="/Brand_Assets/Untitled_Artwork.png" alt="The Oil Merchant" style="height: 30px; filter: invert(1); opacity: 0.9; margin-bottom: 20px; display: block;" />
+          <img src="/brand_assets/Untitled_Artwork.png" alt="The Oil Merchant" style="height: 30px; filter: invert(1); opacity: 0.9; margin-bottom: 20px; display: block;" />
           <p style="font-size: 0.8rem; font-weight: 300; color: rgba(255,255,255,0.5); line-height: 1.8; max-width: 240px; margin: 0 0 24px;">From root to ritual — pure oils, honestly made.<br/>Delivering across Pakistan: Karachi, Lahore, Islamabad &amp; beyond.</p>
           <!-- Social icons -->
           <div style="display: flex; gap: 16px;">
@@ -647,11 +506,104 @@
   </footer>
 
   <script>
+    // ── Product Data (all 50 products from portfolio) ─────────────────────
+    const PRODUCTS = [
+      // Featured (11)
+      { name: 'Aloe Vera Gel',    qty: '120ml', price: 800,  category: 'Featured',      bg: 'EEF5FA', fg: '2A6496' },
+      { name: 'Aloe Vera Oil',    qty: '30ml',  price: 1000, category: 'Featured',      bg: 'EEF5FA', fg: '2A6496' },
+      { name: 'Carrot Seed Oil',  qty: '30ml',  price: 1350, category: 'Featured',      bg: 'EEF5FA', fg: '2A6496' },
+      { name: 'Egg Oil',          qty: '30ml',  price: 1000, category: 'Featured',      bg: 'EEF5FA', fg: '2A6496' },
+      { name: 'Garlic Oil',       qty: '30ml',  price: 1000, category: 'Featured',      bg: 'EEF5FA', fg: '2A6496' },
+      { name: 'Hemp Seed Oil',    qty: '30ml',  price: 1000, category: 'Featured',      bg: 'EEF5FA', fg: '2A6496' },
+      { name: 'Pumpkin Seed Oil', qty: '30ml',  price: 1200, category: 'Featured',      bg: 'EEF5FA', fg: '2A6496' },
+      { name: 'Radish Oil',       qty: '30ml',  price: 1000, category: 'Featured',      bg: 'EEF5FA', fg: '2A6496' },
+      { name: 'Rosehip Oil',      qty: '30ml',  price: 1350, category: 'Featured',      bg: 'EEF5FA', fg: '2A6496' },
+      { name: 'Turmeric Oil',     qty: '30ml',  price: 1200, category: 'Featured',      bg: 'EEF5FA', fg: '2A6496' },
+      { name: 'Vitamin E Oil',    qty: '30ml',  price: 1500, category: 'Featured',      bg: 'EEF5FA', fg: '2A6496' },
+      // Essential Oils (23)
+      { name: 'Argan Oil',        qty: '30ml',  price: 2000, category: 'Essential oil', bg: 'D4EAF5', fg: '1C2B3A' },
+      { name: 'Avocado Oil',      qty: '30ml',  price: 1350, category: 'Essential oil', bg: 'D4EAF5', fg: '1C2B3A' },
+      { name: 'Bergamot Oil',     qty: '30ml',  price: 1500, category: 'Essential oil', bg: 'D4EAF5', fg: '1C2B3A' },
+      { name: 'Cedarwood Oil',    qty: '30ml',  price: 1500, category: 'Essential oil', bg: 'D4EAF5', fg: '1C2B3A' },
+      { name: 'Cinnamon Oil',     qty: '30ml',  price: 1350, category: 'Essential oil', bg: 'D4EAF5', fg: '1C2B3A' },
+      { name: 'Clove Oil',        qty: '30ml',  price: 1350, category: 'Essential oil', bg: 'D4EAF5', fg: '1C2B3A' },
+      { name: 'Eucalyptus Oil',   qty: '30ml',  price: 1350, category: 'Essential oil', bg: 'D4EAF5', fg: '1C2B3A' },
+      { name: 'Frankincense Oil', qty: '30ml',  price: 1500, category: 'Essential oil', bg: 'D4EAF5', fg: '1C2B3A' },
+      { name: 'Grapeseed Oil',    qty: '30ml',  price: 1500, category: 'Essential oil', bg: 'D4EAF5', fg: '1C2B3A' },
+      { name: 'Jojoba Oil',       qty: '30ml',  price: 1350, category: 'Essential oil', bg: 'D4EAF5', fg: '1C2B3A' },
+      { name: 'Lavender Oil',     qty: '30ml',  price: 1500, category: 'Essential oil', bg: 'D4EAF5', fg: '1C2B3A' },
+      { name: 'Lemon Oil',        qty: '30ml',  price: 1350, category: 'Essential oil', bg: 'D4EAF5', fg: '1C2B3A' },
+      { name: 'Lemongrass Oil',   qty: '30ml',  price: 1500, category: 'Essential oil', bg: 'D4EAF5', fg: '1C2B3A' },
+      { name: 'Lime Oil',         qty: '30ml',  price: 1500, category: 'Essential oil', bg: 'D4EAF5', fg: '1C2B3A' },
+      { name: 'Neroli Oil',       qty: '30ml',  price: 1500, category: 'Essential oil', bg: 'D4EAF5', fg: '1C2B3A' },
+      { name: 'Orange Oil',       qty: '30ml',  price: 1500, category: 'Essential oil', bg: 'D4EAF5', fg: '1C2B3A' },
+      { name: 'Patchouli Oil',    qty: '30ml',  price: 1500, category: 'Essential oil', bg: 'D4EAF5', fg: '1C2B3A' },
+      { name: 'Peppermint Oil',   qty: '30ml',  price: 1500, category: 'Essential oil', bg: 'D4EAF5', fg: '1C2B3A' },
+      { name: 'Rose Oil',         qty: '30ml',  price: 1350, category: 'Essential oil', bg: 'D4EAF5', fg: '1C2B3A' },
+      { name: 'Rosemary Oil',     qty: '30ml',  price: 1500, category: 'Essential oil', bg: 'D4EAF5', fg: '1C2B3A' },
+      { name: 'Sandalwood Oil',   qty: '30ml',  price: 1500, category: 'Essential oil', bg: 'D4EAF5', fg: '1C2B3A' },
+      { name: 'Tea Tree Oil',     qty: '30ml',  price: 1500, category: 'Essential oil', bg: 'D4EAF5', fg: '1C2B3A' },
+      { name: 'Ylang-Ylang Oil',  qty: '30ml',  price: 1500, category: 'Essential oil', bg: 'D4EAF5', fg: '1C2B3A' },
+      // Carrier Oils (14)
+      { name: 'Sweet Almond Oil', qty: '120ml', price: 1500, category: 'Carrier Oil',   bg: 'F0F7EE', fg: '4a6b45' },
+      { name: 'Bitter Almond Oil',qty: '120ml', price: 1200, category: 'Carrier Oil',   bg: 'F0F7EE', fg: '4a6b45' },
+      { name: 'Coconut Oil',      qty: '120ml', price: 1000, category: 'Carrier Oil',   bg: 'F0F7EE', fg: '4a6b45' },
+      { name: 'Sesame Oil',       qty: '120ml', price: 800,  category: 'Carrier Oil',   bg: 'F0F7EE', fg: '4a6b45' },
+      { name: 'Mustard Oil',      qty: '120ml', price: 450,  category: 'Carrier Oil',   bg: 'F0F7EE', fg: '4a6b45' },
+      { name: 'Bitter Mustard Oil',qty:'120ml', price: 450,  category: 'Carrier Oil',   bg: 'F0F7EE', fg: '4a6b45' },
+      { name: 'Olive Oil',        qty: '120ml', price: 800,  category: 'Carrier Oil',   bg: 'F0F7EE', fg: '4a6b45' },
+      { name: 'Castor Oil',       qty: '120ml', price: 600,  category: 'Carrier Oil',   bg: 'F0F7EE', fg: '4a6b45' },
+      { name: 'Neem Oil',         qty: '60ml',  price: 1000, category: 'Carrier Oil',   bg: 'F0F7EE', fg: '4a6b45' },
+      { name: 'Onion Oil',        qty: '60ml',  price: 1350, category: 'Carrier Oil',   bg: 'F0F7EE', fg: '4a6b45' },
+      { name: 'Kalonji Oil',      qty: '120ml', price: 1500, category: 'Carrier Oil',   bg: 'F0F7EE', fg: '4a6b45' },
+      { name: 'Flax Seed Oil',    qty: '60ml',  price: 800,  category: 'Carrier Oil',   bg: 'F0F7EE', fg: '4a6b45' },
+      { name: 'Peanut Oil',       qty: '60ml',  price: 1200, category: 'Carrier Oil',   bg: 'F0F7EE', fg: '4a6b45' },
+      { name: 'Amla Oil',         qty: '120ml', price: 800,  category: 'Carrier Oil',   bg: 'F0F7EE', fg: '4a6b45' },
+      // Butters & Waxes (3)
+      { name: 'Shea Butter',      qty: '50gm',  price: 150,  category: 'Butters',       bg: 'F7E8C0', fg: '7a4f1a' },
+      { name: 'Cocoa Butter',     qty: '50gm',  price: 150,  category: 'Butters',       bg: 'F7E8C0', fg: '7a4f1a' },
+      { name: 'Beeswax',          qty: '50gm',  price: 150,  category: 'Butters',       bg: 'F7E8C0', fg: '7a4f1a' },
+    ];
+
+    let activeFilter = 'all';
+
+    function renderProducts(filter) {
+      const grid = document.getElementById('product-grid');
+      const countEl = document.getElementById('product-count');
+      const list = filter === 'all' ? PRODUCTS : PRODUCTS.filter(p => p.category === filter);
+      countEl.textContent = list.length + ' products';
+      grid.innerHTML = list.map(p => {
+        const slug = p.name.replace(/\s+/g, '+');
+        const priceStr = 'PKR ' + p.price.toLocaleString();
+        const catLabel = p.category === 'Essential oil' ? 'Essential Oil'
+                       : p.category === 'Carrier Oil'   ? 'Carrier Oil'
+                       : p.category === 'Butters'       ? 'Butters & Waxes'
+                       : p.category;
+        return `<div class="product-card" style="position:relative;">
+          <div style="position:relative;overflow:hidden;background:#${p.bg};aspect-ratio:3/4;margin-bottom:14px;">
+            <img src="https://placehold.co/320x427/${p.bg}/${p.fg}?text=${slug}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;" loading="lazy" />
+            <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(28,43,58,0.4) 0%,transparent 50%);mix-blend-mode:multiply;"></div>
+            <div class="quick-add" style="position:absolute;bottom:0;left:0;right:0;padding:12px;">
+              <button class="btn-primary" style="width:100%;padding:10px;font-size:0.65rem;">Quick Add</button>
+            </div>
+          </div>
+          <p style="font-size:0.65rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#6A7F8E;margin:0 0 4px;">${catLabel} · ${p.qty}</p>
+          <p style="font-family:'Jost',sans-serif;font-size:0.875rem;font-weight:400;margin:0 0 6px;line-height:1.4;">${p.name}</p>
+          <p style="font-size:0.875rem;font-weight:500;margin:0;color:#1C2B3A;">${priceStr}</p>
+        </div>`;
+      }).join('');
+    }
+
     // Tab switching
-    function setTab(el) {
+    function setTab(el, filter) {
       document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
       el.classList.add('active');
+      activeFilter = filter;
+      renderProducts(filter);
     }
+
+    // Initial render
+    renderProducts('all');
 
     // Carousel dot cycling (simple demo)
     const dots = document.querySelectorAll('.dot');

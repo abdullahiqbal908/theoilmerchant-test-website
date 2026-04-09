@@ -3,3 +3,5 @@ temporary screenshots/
 CLAUDE.md
 *.png
 package-lock.json
+.next/
+.vercel/
