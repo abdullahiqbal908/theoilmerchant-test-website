@@ -2,6 +2,7 @@ node_modules/
 temporary screenshots/
 CLAUDE.md
 *.png
+!public/**/*.png
 package-lock.json
 .next/
 .vercel/
