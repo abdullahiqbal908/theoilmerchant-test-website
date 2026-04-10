@@ -6,35 +6,26 @@ export async function GET() {
 
   const today = new Date()
   today.setHours(0, 0, 0, 0)
-
   const firstOfMonth = new Date(today.getFullYear(), today.getMonth(), 1).toISOString()
   const todayISO = today.toISOString()
 
-  const [
-    { count: totalOrders },
-    { count: ordersToday },
-    { data: monthOrders },
-    { count: activeProducts },
-    { data: statusData },
-  ] = await Promise.all([
-    supabase.from('orders').select('*', { count: 'exact', head: true }),
-    supabase.from('orders').select('*', { count: 'exact', head: true }).gte('created_at', todayISO),
-    supabase.from('orders').select('total').gte('created_at', firstOfMonth),
-    supabase.from('products').select('*', { count: 'exact', head: true }).eq('is_active', true),
-    supabase.from('orders').select('status'),
+  const [ordersRes, productsRes] = await Promise.all([
+    supabase.from('orders').select('created_at, total, status'),
+    supabase.from('products').select('id', { count: 'exact' }).eq('is_active', true),
   ])
 
-  const monthRevenue = (monthOrders || []).reduce((sum, o) => sum + Number(o.total), 0)
+  const allOrders = ordersRes.data || []
+  const totalOrders = allOrders.length
+  const ordersToday = allOrders.filter(o => o.created_at >= todayISO).length
+  const monthRevenue = allOrders
+    .filter(o => o.created_at >= firstOfMonth)
+    .reduce((sum, o) => sum + Number(o.total), 0)
+  const activeProducts = productsRes.count ?? 0
 
-  const byStatus = {}
-  ;['pending', 'confirmed', 'shipped', 'delivered', 'cancelled'].forEach(s => { byStatus[s] = 0 })
-  ;(statusData || []).forEach(o => { if (byStatus[o.status] !== undefined) byStatus[o.status]++ })
+  const byStatus = { pending: 0, confirmed: 0, shipped: 0, delivered: 0, cancelled: 0 }
+  for (const o of allOrders) {
+    if (byStatus[o.status] !== undefined) byStatus[o.status]++
+  }
 
-  return NextResponse.json({
-    totalOrders: totalOrders || 0,
-    ordersToday: ordersToday || 0,
-    monthRevenue,
-    activeProducts: activeProducts || 0,
-    byStatus,
-  })
+  return NextResponse.json({ totalOrders, ordersToday, monthRevenue, activeProducts, byStatus })
 }
