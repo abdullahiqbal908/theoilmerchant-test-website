@@ -6,3 +6,5 @@ CLAUDE.md
 package-lock.json
 .next/
 .vercel/
+.env.local
+.claude/

@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server'
 import { getSupabaseAdmin } from '@/lib/supabase'
 import { sendShippedEmail } from '@/lib/email'
 
+export const dynamic = 'force-dynamic'
+
 export async function GET() {
   const supabase = getSupabaseAdmin()
   const { data: orders, error } = await supabase
