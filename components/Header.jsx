@@ -4,14 +4,15 @@ import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useCart } from '@/context/CartContext'
-import { products } from '@/data/products'
+import { getAllProducts } from '@/lib/products'
 
 const NAV_LINKS = [
-  { label: 'Hair Care', href: '/hair-care' },
+  { label: 'Hair Care', href: '/collections/hair-care' },
   { label: 'Essential Oils', href: '/collections/essential-oils' },
   { label: 'Carrier Oils', href: '/collections/carrier-oils' },
   { label: 'All Oils', href: '/all-oils' },
-  { label: 'Sale', href: '/sale', className: 'text-sage' },
+  { label: 'Rituals', href: '/rituals' },
+  { label: 'Sale', href: '/collections/sale' },
 ]
 
 export default function Header() {
@@ -22,19 +23,25 @@ export default function Header() {
   const [searchQuery, setSearchQuery] = useState('')
   const [searchResults, setSearchResults] = useState([])
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [allProducts, setAllProducts] = useState([])
   const searchInputRef = useRef(null)
+
+  // Load products once for search
+  useEffect(() => {
+    getAllProducts().then(setAllProducts).catch(() => {})
+  }, [])
 
   // Search logic
   useEffect(() => {
     const q = searchQuery.trim().toLowerCase()
     if (!q) { setSearchResults([]); return }
-    const results = products.filter(p =>
+    const results = allProducts.filter(p =>
       p.name.toLowerCase().includes(q) ||
-      p.description.toLowerCase().includes(q) ||
+      (p.description && p.description.toLowerCase().includes(q)) ||
       p.category.toLowerCase().includes(q)
     )
     setSearchResults(results)
-  }, [searchQuery])
+  }, [searchQuery, allProducts])
 
   // Focus input when search opens
   useEffect(() => {

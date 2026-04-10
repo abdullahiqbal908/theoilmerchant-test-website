@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import ProductCard from '@/components/ProductCard'
-import { products } from '@/data/products'
+import { getAllProducts } from '@/lib/products'
 
 const TABS = ['Featured', 'Essential Oils', 'Carrier Oils', 'Hair Care', 'Butters & Waxes']
 
@@ -46,7 +46,7 @@ const CATEGORY_CARDS = [
   },
 ]
 
-function getTabProducts(tab) {
+function getTabProducts(tab, products) {
   if (tab === 'Featured') return products.filter(p => p.subcategory === 'Featured')
   if (tab === 'Essential Oils') return products.filter(p => p.category === 'Essential Oils')
   if (tab === 'Carrier Oils') return products.filter(p => p.category === 'Carrier Oils')
@@ -55,11 +55,18 @@ function getTabProducts(tab) {
   return products
 }
 
-const newArrivals = products.slice(0, 4)
-
 export default function HomePage() {
   const [activeTab, setActiveTab] = useState('Featured')
   const [dotIndex, setDotIndex] = useState(0)
+  const [products, setProducts] = useState([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    getAllProducts()
+      .then(setProducts)
+      .catch(console.error)
+      .finally(() => setLoading(false))
+  }, [])
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -67,6 +74,9 @@ export default function HomePage() {
     }, 3500)
     return () => clearInterval(interval)
   }, [])
+
+  const tabProducts = getTabProducts(activeTab, products)
+  const newArrivals = products.slice(0, 4)
 
   return (
     <>
@@ -133,9 +143,13 @@ export default function HomePage() {
 
       {/* ── FILTERED PRODUCT GRID ── */}
       <section id="shop" style={{ padding: '0 40px 56px', maxWidth: 1400, margin: '0 auto' }}>
-        <div className="home-product-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 24 }}>
-          {getTabProducts(activeTab).map(p => <ProductCard key={p.id} product={p} />)}
-        </div>
+        {loading ? (
+          <div style={{ textAlign: 'center', padding: '60px 0', color: '#6A7F8E', fontSize: '0.875rem' }}>Loading products…</div>
+        ) : (
+          <div className="home-product-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 24 }}>
+            {tabProducts.map(p => <ProductCard key={p.id} product={p} />)}
+          </div>
+        )}
         <div style={{ textAlign: 'center', marginTop: 40 }}>
           <Link href="/all-oils" className="btn-outline">View All Products</Link>
         </div>
@@ -157,7 +171,7 @@ export default function HomePage() {
           <p style={{ fontFamily: "'Jost', sans-serif", fontSize: '0.875rem', fontWeight: 300, color: 'rgba(255,255,255,0.75)', lineHeight: 1.8, margin: '0 0 36px', maxWidth: 360 }}>
             Every drop, cold-pressed and consecrated. Our scalp treatment oils are sourced for efficacy — nothing added, nothing hidden.
           </p>
-          <Link href="/scalp" className="btn-outline-white" style={{ alignSelf: 'flex-start' }}>Shop the Edit</Link>
+          <Link href="/collections/hair-care" className="btn-outline-white" style={{ alignSelf: 'flex-start' }}>Shop the Edit</Link>
         </div>
       </section>
 
@@ -192,9 +206,13 @@ export default function HomePage() {
           </div>
           <Link href="/collections/new-arrivals" className="nav-link" style={{ fontSize: '0.72rem' }}>View All</Link>
         </div>
-        <div className="home-product-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 24 }}>
-          {newArrivals.map(p => <ProductCard key={p.id} product={p} />)}
-        </div>
+        {loading ? (
+          <div style={{ textAlign: 'center', padding: '40px 0', color: '#6A7F8E', fontSize: '0.875rem' }}>Loading…</div>
+        ) : (
+          <div className="home-product-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 24 }}>
+            {newArrivals.map(p => <ProductCard key={p.id} product={p} />)}
+          </div>
+        )}
       </section>
 
       <hr className="divider" />

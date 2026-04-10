@@ -3,7 +3,7 @@
 import { useEffect } from 'react'
 import Link from 'next/link'
 import { useCart } from '@/context/CartContext'
-import { formatPrice } from '@/data/products'
+import { formatPrice } from '@/lib/products'
 
 export default function CartDrawer() {
   const { cartItems, cartTotal, cartCount, removeFromCart, updateQuantity, isCartOpen, closeCart } = useCart()

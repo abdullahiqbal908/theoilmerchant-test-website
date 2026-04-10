@@ -1,8 +1,11 @@
 import './globals.css'
+import Script from 'next/script'
 import { CartProvider } from '@/context/CartContext'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import CartDrawer from '@/components/CartDrawer'
+
+const GA_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
 
 export const metadata = {
   title: 'The Oil Merchant — Pure Oils, Honestly Made',
@@ -18,6 +21,24 @@ export default function RootLayout({ children }) {
         <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
       </head>
       <body>
+        {/* Google Analytics */}
+        {GA_ID && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script id="ga-init" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${GA_ID}', { page_path: window.location.pathname });
+              `}
+            </Script>
+          </>
+        )}
+
         <CartProvider>
           <Header />
           <main>{children}</main>

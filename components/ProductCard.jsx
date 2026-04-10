@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { useCart } from '@/context/CartContext'
-import { formatPrice } from '@/data/products'
+import { formatPrice } from '@/lib/products'
 
 export default function ProductCard({ product }) {
   const { addToCart } = useCart()
